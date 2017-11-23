@@ -5,7 +5,10 @@ import (
 )
 
 func TestCreateUser(t *testing.T) {
-	user := &User{
+	clearDB()
+	defer clearDB()
+
+	user := User{
 		ID:    1,
 		Name:  "zouqilin",
 		Phone: "12345678",
@@ -21,11 +24,13 @@ func TestCreateUser(t *testing.T) {
 	if u.ID != user.ID || u.Name != user.Name {
 		t.Errorf("failed to create user")
 	}
-
 }
 
 func TestUpdateUser(t *testing.T) {
-	user := &User{
+	clearDB()
+	defer clearDB()
+
+	user := User{
 		ID:    1,
 		Name:  "zouqilin",
 		Phone: "12345678",
@@ -48,7 +53,10 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestDeleteUser(t *testing.T) {
-	user := &User{
+	clearDB()
+	defer clearDB()
+
+	user := User{
 		ID:    1,
 		Name:  "zouqilin",
 		Phone: "12345678",
