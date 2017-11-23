@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+service User {
+    rpc GetUsers(UsersRequest) returns (UsersResponse) {}
+    rpc SearchUsers(UsersSearchRequest) returns (UsersResponse) {}
+    rpc GetUser(UserRequest) returns (UserResponse) {}
+}
+
+message UsersRequest {
+	repeated integer ids = 1;
+}
+
+message UsersSearchRequest {
+	repeated string names = 1;
+}
+
+message UserRequest {
+	integer id = 1;
+}
+
+message UserResponse {
+	repeated User users = 1;
+}
+
+Message User {
+	integer id = 1;
+	string name = 2;
+	string phone = 3;
+	string email = 4;
+	integer role = 5;
+}
