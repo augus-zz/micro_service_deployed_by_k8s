@@ -1,31 +1,99 @@
 syntax = "proto3";
 
-service User {
-    rpc GetUsers(UsersRequest) returns (UsersResponse) {}
-    rpc SearchUsers(UsersSearchRequest) returns (UsersResponse) {}
-    rpc GetUser(UserRequest) returns (UserResponse) {}
+service UserService {
+  rpc GetUsers(UsersRequest) returns (UsersResponse) {}
+  rpc SearchUsers(UsersSearchRequest) returns (UsersResponse) {}
+  rpc GetUser(UserRequest) returns (UserResponse) {}
+
+  rpc GetStores(StoresRequest) returns (StoresResponse) {}
+  rpc SearchStores(StoresSearchRequest) returns (StoresResponse) {}
+  rpc GetStore(StoreRequest) returns (StoreResponse) {}
+
+  rpc GetCustomers(CustomersRequest) returns (CustomersResponse) {}
+  rpc SearchCustomers(CustomersSearchRequest) returns (CustomersResponse) {}
+  rpc GetCustomer(CustomerRequest) returns (CustomerResponse) {}
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string phone = 3;
+  string email = 4;
+  int32 role = 5;
 }
 
 message UsersRequest {
-	repeated integer ids = 1;
+  repeated int32 ids = 1;
 }
 
 message UsersSearchRequest {
-	repeated string names = 1;
+  repeated string names = 1;
 }
 
 message UserRequest {
-	integer id = 1;
+  int32 id = 1;
+}
+
+message UsersResponse {
+  repeated User users = 1;
 }
 
 message UserResponse {
-	repeated User users = 1;
+  User user = 1;
 }
 
-Message User {
-	integer id = 1;
-	string name = 2;
-	string phone = 3;
-	string email = 4;
-	integer role = 5;
+message Store {
+  int32 id = 1;
+  string title = 2;
+  string address = 3;
 }
+
+message StoresRequest {
+  repeated int32 ids = 1;
+}
+
+message StoresSearchRequest {
+  repeated string titles = 1;
+}
+
+message StoreRequest {
+  int32 id = 1;
+}
+
+message StoresResponse {
+  repeated Store stores = 1;
+}
+
+message StoreResponse {
+  Store store = 1;
+}
+
+message Customer {
+  int32 id = 1;
+  string name = 2;
+  int32 store_id = 3;
+  int32 user_id = 4;
+}
+
+message CustomersRequest {
+  repeated int32 ids = 1;
+}
+
+message CustomersSearchRequest {
+  repeated string names = 1;
+  repeated int32 store_ids = 2;
+  int32 user_id = 3;
+}
+
+message CustomerRequest {
+  int32 id = 1;
+}
+
+message CustomersResponse {
+  repeated Store stores = 1;
+}
+
+message CustomerResponse {
+  Store store = 1;
+}
+

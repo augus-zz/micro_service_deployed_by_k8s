@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./model"
+	"./service"
 )
 
 func main() {
-	model.InitDB()
+	service.Run()
 }
