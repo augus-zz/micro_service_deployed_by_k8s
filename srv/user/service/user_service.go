@@ -1,24 +1,19 @@
 package service
 
 import (
-	// "../model"
-	"../proto"
+	// "micro-demo-deploy-by-k8s/srv/user/model"
+	"context"
+	proto "micro-demo-deploy-by-k8s/srv/user/proto"
 )
 
-type UserService struct{}
-
-func (us *UserService) GetUsers(ctx context.Context, req *proto.UsersRequest, rsp *proto.UsersResponse) error {
+func (s *Service) GetUsers(ctx context.Context, req *proto.UsersRequest, rsp *proto.UsersResponse) error {
 	return nil
 }
 
-func (us *UserService) SearchUsers(ctx context.Context, req *proto.UsersSearchRequest, rsp *proto.UsersResponse) error {
+func (s *Service) SearchUsers(ctx context.Context, req *proto.UsersSearchRequest, rsp *proto.UsersResponse) error {
 	return nil
 }
 
-func (us *UserService) GetUser(ctx context.Context, req *proto.UserRequest, rsp *proto.UserResponse) error {
+func (s *Service) GetUser(ctx context.Context, req *proto.UserRequest, rsp *proto.UserResponse) error {
 	return nil
-}
-
-func registerUserService() {
-	proto.RegisterUserServiceHandler(service.Server(), new(UserService))
 }

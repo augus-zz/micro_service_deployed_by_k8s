@@ -1,24 +1,19 @@
 package service
 
 import (
-	// "../model"
-	"../proto"
+	// "micro-demo-deploy-by-k8s/srv/user/model"
+	"context"
+	proto "micro-demo-deploy-by-k8s/srv/user/proto"
 )
 
-type StoreService struct{}
-
-func (us *StoreService) GetStores(ctx context.Context, req *proto.StoresRequest, rsp *proto.StoresResponse) error {
+func (s *Service) GetStores(ctx context.Context, req *proto.StoresRequest, rsp *proto.StoresResponse) error {
 	return nil
 }
 
-func (us *StoreService) SearchStores(ctx context.Context, req *proto.StoresSearchRequest, rsp *proto.StoresResponse) error {
+func (s *Service) SearchStores(ctx context.Context, req *proto.StoresSearchRequest, rsp *proto.StoresResponse) error {
 	return nil
 }
 
-func (us *StoreService) GetStore(ctx context.Context, req *proto.StoreRequest, rsp *proto.StoreResponse) error {
+func (s *Service) GetStore(ctx context.Context, req *proto.StoreRequest, rsp *proto.StoreResponse) error {
 	return nil
-}
-
-func registerStoreService() {
-	proto.RegisterStoreServiceHandler(service.Server(), new(StoreService))
 }

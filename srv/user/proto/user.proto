@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-service UserService {
+service Service {
   rpc GetUsers(UsersRequest) returns (UsersResponse) {}
   rpc SearchUsers(UsersSearchRequest) returns (UsersResponse) {}
   rpc GetUser(UserRequest) returns (UserResponse) {}

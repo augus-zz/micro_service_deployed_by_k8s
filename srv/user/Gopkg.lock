@@ -57,13 +57,19 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/micro/cli"
+  packages = ["."]
+  revision = "3d2263bb092286dde294a31049c92665f8373820"
+
+[[projects]]
+  branch = "master"
   name = "github.com/micro/go-log"
   packages = ["."]
   revision = "cbfa9447f9b655f8e66583237e51f40ca9bff860"
 
 [[projects]]
   name = "github.com/micro/go-micro"
-  packages = ["broker","broker/codec","broker/codec/json","client","codec","codec/jsonrpc","codec/protorpc","errors","metadata","registry","selector","server","server/debug","server/debug/proto","transport","transport/codec"]
+  packages = [".","broker","broker/codec","broker/codec/json","broker/http","client","cmd","codec","codec/jsonrpc","codec/protorpc","errors","metadata","registry","registry/consul","registry/mdns","selector","selector/cache","server","server/debug","server/debug/proto","transport","transport/codec","transport/http"]
   revision = "78da1fde94ff21e1faee56456b8c5a3b23dbecdf"
   version = "v0.2.0"
 
@@ -75,9 +81,21 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/micro/mdns"
+  packages = ["."]
+  revision = "cdf30746f9f70dc7a366d3d885792a092fd83102"
+
+[[projects]]
+  branch = "master"
   name = "github.com/micro/misc"
   packages = ["lib/addr","lib/net","lib/tls"]
   revision = "d090a0434084e482de5c73e8892b56d291881ec9"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/miekg/dns"
+  packages = [".","internal/socket"]
+  revision = "be5ae6ca7ac994584d2e30167737687f1c1ded8e"
 
 [[projects]]
   branch = "master"
@@ -112,12 +130,12 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
-  packages = ["context"]
+  packages = ["bpf","context","internal/iana","internal/socket","ipv4","ipv6"]
   revision = "c7086645de248775cbf2373cf5ca4d2fa664b8c1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c312d06bdb19274f4f1a2e0461776e742d2e2ef10d4a60047f094ee24fabbfeb"
+  inputs-digest = "7e5fd2744f47622b10d07e302a8c401f89da613d17da7ad6dea922adb2d5f998"
   solver-name = "gps-cdcl"
   solver-version = 1

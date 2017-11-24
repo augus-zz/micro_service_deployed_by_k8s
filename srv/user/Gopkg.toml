@@ -20,3 +20,19 @@
 #  name = "github.com/x/y"
 #  version = "2.4.0"
 
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/golang/protobuf"
+
+[[constraint]]
+  name = "github.com/jinzhu/gorm"
+  version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/micro/go-micro"
+  version = "0.2.0"
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/net"

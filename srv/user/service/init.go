@@ -1,15 +1,17 @@
 package service
 
 import (
-	"../model"
-	"../proto"
+	// "micro-demo-deploy-by-k8s/srv/user/model"
 	micro "github.com/micro/go-micro"
 	"log"
+	proto "micro-demo-deploy-by-k8s/srv/user/proto"
 )
 
 var (
 	service micro.Service
 )
+
+type Service struct{}
 
 func init() {
 	service = micro.NewService(
@@ -22,9 +24,7 @@ func init() {
 
 	service.Init()
 
-	registerUserService()
-	registerStoreService()
-	registerCustomerService()
+	proto.RegisterServiceHandler(service.Server(), new(Service))
 }
 
 func Run() {

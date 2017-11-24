@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./service"
+	"micro-demo-deploy-by-k8s/srv/user/service"
 )
 
 func main() {
