@@ -30,11 +30,11 @@ var USER_ROLES []string = []string{
 
 type User struct {
 	// gorm.Model
-	ID    uint
+	ID    uint32
 	Name  string
 	Phone string
 	Email string
-	Role  uint
+	Role  uint32
 }
 
 func (user *User) UserRole() string {

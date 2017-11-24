@@ -4,26 +4,35 @@ service Service {
   rpc GetUsers(UsersRequest) returns (UsersResponse) {}
   rpc SearchUsers(UsersSearchRequest) returns (UsersResponse) {}
   rpc GetUser(UserRequest) returns (UserResponse) {}
+  rpc CreateUser(UserRequest) returns (UserResponse) {}
+  rpc UpdateUser(UserRequest) returns (UserResponse) {}
+  rpc DeleteUser(UserRequest) returns (DeleteResponse) {}
 
   rpc GetStores(StoresRequest) returns (StoresResponse) {}
   rpc SearchStores(StoresSearchRequest) returns (StoresResponse) {}
   rpc GetStore(StoreRequest) returns (StoreResponse) {}
+  rpc CreateStore(StoreRequest) returns (StoreResponse) {}
+  rpc UpdateStore(StoreRequest) returns (StoreResponse) {}
+  rpc DeleteStore(StoreRequest) returns (DeleteResponse) {}
 
   rpc GetCustomers(CustomersRequest) returns (CustomersResponse) {}
   rpc SearchCustomers(CustomersSearchRequest) returns (CustomersResponse) {}
   rpc GetCustomer(CustomerRequest) returns (CustomerResponse) {}
+  rpc CreateCustomer(CustomerRequest) returns (CustomerResponse) {}
+  rpc UpdateCustomer(CustomerRequest) returns (CustomerResponse) {}
+  rpc DeleteCustomer(CustomerRequest) returns (DeleteResponse) {}
 }
 
 message User {
-  int32 id = 1;
+  uint32 id = 1;
   string name = 2;
   string phone = 3;
   string email = 4;
-  int32 role = 5;
+  uint32 role = 5;
 }
 
 message UsersRequest {
-  repeated int32 ids = 1;
+  repeated uint32 ids = 1;
 }
 
 message UsersSearchRequest {
@@ -31,7 +40,7 @@ message UsersSearchRequest {
 }
 
 message UserRequest {
-  int32 id = 1;
+  User user = 1;
 }
 
 message UsersResponse {
@@ -40,16 +49,22 @@ message UsersResponse {
 
 message UserResponse {
   User user = 1;
+  bool success = 2;
+}
+
+message DeleteResponse {
+  bool success = 1;
+  string error_msg = 2;
 }
 
 message Store {
-  int32 id = 1;
+  uint32 id = 1;
   string title = 2;
   string address = 3;
 }
 
 message StoresRequest {
-  repeated int32 ids = 1;
+  repeated uint32 ids = 1;
 }
 
 message StoresSearchRequest {
@@ -57,7 +72,7 @@ message StoresSearchRequest {
 }
 
 message StoreRequest {
-  int32 id = 1;
+  Store store = 1;
 }
 
 message StoresResponse {
@@ -66,34 +81,35 @@ message StoresResponse {
 
 message StoreResponse {
   Store store = 1;
+  bool success = 2;
 }
 
 message Customer {
-  int32 id = 1;
+  uint32 id = 1;
   string name = 2;
-  int32 store_id = 3;
-  int32 user_id = 4;
+  uint32 store_id = 3;
+  uint32 user_id = 4;
 }
 
 message CustomersRequest {
-  repeated int32 ids = 1;
+  repeated uint32 ids = 1;
 }
 
 message CustomersSearchRequest {
   repeated string names = 1;
-  repeated int32 store_ids = 2;
-  int32 user_id = 3;
+  repeated uint32 store_ids = 2;
+  uint32 user_id = 3;
 }
 
 message CustomerRequest {
-  int32 id = 1;
+  Customer customer = 1;
 }
 
 message CustomersResponse {
-  repeated Store stores = 1;
+  repeated Customer customers = 1;
 }
 
 message CustomerResponse {
-  Store store = 1;
+  Customer customer = 1;
+  bool success = 2;
 }
-

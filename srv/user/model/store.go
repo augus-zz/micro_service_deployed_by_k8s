@@ -6,7 +6,7 @@ import (
 
 type Store struct {
 	// gorm.Model
-	ID      uint
+	ID      uint32
 	Title   string
 	Address string
 }

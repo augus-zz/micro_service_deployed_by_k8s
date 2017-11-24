@@ -6,10 +6,10 @@ import (
 
 type Customer struct {
 	// gorm.Model
-	ID      uint
+	ID      uint32
 	Name    string
-	StoreID uint
+	StoreID uint32
 	Store   Store
-	UserID  uint
+	UserID  uint32
 	User    User
 }

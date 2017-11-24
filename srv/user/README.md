@@ -7,3 +7,10 @@
 
 ### run
 `MYSQL_USERNAME=mysql_username MYSQL_PASSWORD=mysql_pwd MYSQL_DB_NAME=db_name go run main.go`
+
+
+#### user
+* create `micro query user Service.CreateUser '{"user": {"id": 1, "name": "zouqilin", "Phone": "12345678", "Email": "mr.zouqilin@gmail.com", "Role": 0}}'`
+* get one `micro query user Service.GetUser '{"user": {"id": 1}}'`
+* get batch `micro query user Service.GetUsers '{"ids": 1}'`
+* delete `micro query user Service.DeleteUser '{"user": {"id": 1}}'`

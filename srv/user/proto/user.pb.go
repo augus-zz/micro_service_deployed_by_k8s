@@ -14,6 +14,7 @@ It has these top-level messages:
 	UserRequest
 	UsersResponse
 	UserResponse
+	DeleteResponse
 	Store
 	StoresRequest
 	StoresSearchRequest
@@ -51,11 +52,11 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type User struct {
-	Id    int32  `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	Id    uint32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 	Name  string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
 	Phone string `protobuf:"bytes,3,opt,name=phone" json:"phone,omitempty"`
 	Email string `protobuf:"bytes,4,opt,name=email" json:"email,omitempty"`
-	Role  int32  `protobuf:"varint,5,opt,name=role" json:"role,omitempty"`
+	Role  uint32 `protobuf:"varint,5,opt,name=role" json:"role,omitempty"`
 }
 
 func (m *User) Reset()                    { *m = User{} }
@@ -63,7 +64,7 @@ func (m *User) String() string            { return proto.CompactTextString(m) }
 func (*User) ProtoMessage()               {}
 func (*User) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *User) GetId() int32 {
+func (m *User) GetId() uint32 {
 	if m != nil {
 		return m.Id
 	}
@@ -91,7 +92,7 @@ func (m *User) GetEmail() string {
 	return ""
 }
 
-func (m *User) GetRole() int32 {
+func (m *User) GetRole() uint32 {
 	if m != nil {
 		return m.Role
 	}
@@ -99,7 +100,7 @@ func (m *User) GetRole() int32 {
 }
 
 type UsersRequest struct {
-	Ids []int32 `protobuf:"varint,1,rep,packed,name=ids" json:"ids,omitempty"`
+	Ids []uint32 `protobuf:"varint,1,rep,packed,name=ids" json:"ids,omitempty"`
 }
 
 func (m *UsersRequest) Reset()                    { *m = UsersRequest{} }
@@ -107,7 +108,7 @@ func (m *UsersRequest) String() string            { return proto.CompactTextStri
 func (*UsersRequest) ProtoMessage()               {}
 func (*UsersRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
-func (m *UsersRequest) GetIds() []int32 {
+func (m *UsersRequest) GetIds() []uint32 {
 	if m != nil {
 		return m.Ids
 	}
@@ -131,7 +132,7 @@ func (m *UsersSearchRequest) GetNames() []string {
 }
 
 type UserRequest struct {
-	Id int32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	User *User `protobuf:"bytes,1,opt,name=user" json:"user,omitempty"`
 }
 
 func (m *UserRequest) Reset()                    { *m = UserRequest{} }
@@ -139,11 +140,11 @@ func (m *UserRequest) String() string            { return proto.CompactTextStrin
 func (*UserRequest) ProtoMessage()               {}
 func (*UserRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
-func (m *UserRequest) GetId() int32 {
+func (m *UserRequest) GetUser() *User {
 	if m != nil {
-		return m.Id
+		return m.User
 	}
-	return 0
+	return nil
 }
 
 type UsersResponse struct {
@@ -163,7 +164,8 @@ func (m *UsersResponse) GetUsers() []*User {
 }
 
 type UserResponse struct {
-	User *User `protobuf:"bytes,1,opt,name=user" json:"user,omitempty"`
+	User    *User `protobuf:"bytes,1,opt,name=user" json:"user,omitempty"`
+	Success bool  `protobuf:"varint,2,opt,name=success" json:"success,omitempty"`
 }
 
 func (m *UserResponse) Reset()                    { *m = UserResponse{} }
@@ -178,8 +180,39 @@ func (m *UserResponse) GetUser() *User {
 	return nil
 }
 
+func (m *UserResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
+type DeleteResponse struct {
+	Success  bool   `protobuf:"varint,1,opt,name=success" json:"success,omitempty"`
+	ErrorMsg string `protobuf:"bytes,2,opt,name=error_msg,json=errorMsg" json:"error_msg,omitempty"`
+}
+
+func (m *DeleteResponse) Reset()                    { *m = DeleteResponse{} }
+func (m *DeleteResponse) String() string            { return proto.CompactTextString(m) }
+func (*DeleteResponse) ProtoMessage()               {}
+func (*DeleteResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+
+func (m *DeleteResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
+func (m *DeleteResponse) GetErrorMsg() string {
+	if m != nil {
+		return m.ErrorMsg
+	}
+	return ""
+}
+
 type Store struct {
-	Id      int32  `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	Id      uint32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 	Title   string `protobuf:"bytes,2,opt,name=title" json:"title,omitempty"`
 	Address string `protobuf:"bytes,3,opt,name=address" json:"address,omitempty"`
 }
@@ -187,9 +220,9 @@ type Store struct {
 func (m *Store) Reset()                    { *m = Store{} }
 func (m *Store) String() string            { return proto.CompactTextString(m) }
 func (*Store) ProtoMessage()               {}
-func (*Store) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+func (*Store) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
 
-func (m *Store) GetId() int32 {
+func (m *Store) GetId() uint32 {
 	if m != nil {
 		return m.Id
 	}
@@ -211,15 +244,15 @@ func (m *Store) GetAddress() string {
 }
 
 type StoresRequest struct {
-	Ids []int32 `protobuf:"varint,1,rep,packed,name=ids" json:"ids,omitempty"`
+	Ids []uint32 `protobuf:"varint,1,rep,packed,name=ids" json:"ids,omitempty"`
 }
 
 func (m *StoresRequest) Reset()                    { *m = StoresRequest{} }
 func (m *StoresRequest) String() string            { return proto.CompactTextString(m) }
 func (*StoresRequest) ProtoMessage()               {}
-func (*StoresRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+func (*StoresRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
 
-func (m *StoresRequest) GetIds() []int32 {
+func (m *StoresRequest) GetIds() []uint32 {
 	if m != nil {
 		return m.Ids
 	}
@@ -233,7 +266,7 @@ type StoresSearchRequest struct {
 func (m *StoresSearchRequest) Reset()                    { *m = StoresSearchRequest{} }
 func (m *StoresSearchRequest) String() string            { return proto.CompactTextString(m) }
 func (*StoresSearchRequest) ProtoMessage()               {}
-func (*StoresSearchRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
+func (*StoresSearchRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
 
 func (m *StoresSearchRequest) GetTitles() []string {
 	if m != nil {
@@ -243,19 +276,19 @@ func (m *StoresSearchRequest) GetTitles() []string {
 }
 
 type StoreRequest struct {
-	Id int32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	Store *Store `protobuf:"bytes,1,opt,name=store" json:"store,omitempty"`
 }
 
 func (m *StoreRequest) Reset()                    { *m = StoreRequest{} }
 func (m *StoreRequest) String() string            { return proto.CompactTextString(m) }
 func (*StoreRequest) ProtoMessage()               {}
-func (*StoreRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
+func (*StoreRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
 
-func (m *StoreRequest) GetId() int32 {
+func (m *StoreRequest) GetStore() *Store {
 	if m != nil {
-		return m.Id
+		return m.Store
 	}
-	return 0
+	return nil
 }
 
 type StoresResponse struct {
@@ -265,7 +298,7 @@ type StoresResponse struct {
 func (m *StoresResponse) Reset()                    { *m = StoresResponse{} }
 func (m *StoresResponse) String() string            { return proto.CompactTextString(m) }
 func (*StoresResponse) ProtoMessage()               {}
-func (*StoresResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
+func (*StoresResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
 
 func (m *StoresResponse) GetStores() []*Store {
 	if m != nil {
@@ -275,13 +308,14 @@ func (m *StoresResponse) GetStores() []*Store {
 }
 
 type StoreResponse struct {
-	Store *Store `protobuf:"bytes,1,opt,name=store" json:"store,omitempty"`
+	Store   *Store `protobuf:"bytes,1,opt,name=store" json:"store,omitempty"`
+	Success bool   `protobuf:"varint,2,opt,name=success" json:"success,omitempty"`
 }
 
 func (m *StoreResponse) Reset()                    { *m = StoreResponse{} }
 func (m *StoreResponse) String() string            { return proto.CompactTextString(m) }
 func (*StoreResponse) ProtoMessage()               {}
-func (*StoreResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
+func (*StoreResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{12} }
 
 func (m *StoreResponse) GetStore() *Store {
 	if m != nil {
@@ -290,19 +324,26 @@ func (m *StoreResponse) GetStore() *Store {
 	return nil
 }
 
+func (m *StoreResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
 type Customer struct {
-	Id      int32  `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	Id      uint32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 	Name    string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
-	StoreId int32  `protobuf:"varint,3,opt,name=store_id,json=storeId" json:"store_id,omitempty"`
-	UserId  int32  `protobuf:"varint,4,opt,name=user_id,json=userId" json:"user_id,omitempty"`
+	StoreId uint32 `protobuf:"varint,3,opt,name=store_id,json=storeId" json:"store_id,omitempty"`
+	UserId  uint32 `protobuf:"varint,4,opt,name=user_id,json=userId" json:"user_id,omitempty"`
 }
 
 func (m *Customer) Reset()                    { *m = Customer{} }
 func (m *Customer) String() string            { return proto.CompactTextString(m) }
 func (*Customer) ProtoMessage()               {}
-func (*Customer) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{12} }
+func (*Customer) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
 
-func (m *Customer) GetId() int32 {
+func (m *Customer) GetId() uint32 {
 	if m != nil {
 		return m.Id
 	}
@@ -316,14 +357,14 @@ func (m *Customer) GetName() string {
 	return ""
 }
 
-func (m *Customer) GetStoreId() int32 {
+func (m *Customer) GetStoreId() uint32 {
 	if m != nil {
 		return m.StoreId
 	}
 	return 0
 }
 
-func (m *Customer) GetUserId() int32 {
+func (m *Customer) GetUserId() uint32 {
 	if m != nil {
 		return m.UserId
 	}
@@ -331,15 +372,15 @@ func (m *Customer) GetUserId() int32 {
 }
 
 type CustomersRequest struct {
-	Ids []int32 `protobuf:"varint,1,rep,packed,name=ids" json:"ids,omitempty"`
+	Ids []uint32 `protobuf:"varint,1,rep,packed,name=ids" json:"ids,omitempty"`
 }
 
 func (m *CustomersRequest) Reset()                    { *m = CustomersRequest{} }
 func (m *CustomersRequest) String() string            { return proto.CompactTextString(m) }
 func (*CustomersRequest) ProtoMessage()               {}
-func (*CustomersRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
+func (*CustomersRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{14} }
 
-func (m *CustomersRequest) GetIds() []int32 {
+func (m *CustomersRequest) GetIds() []uint32 {
 	if m != nil {
 		return m.Ids
 	}
@@ -348,14 +389,14 @@ func (m *CustomersRequest) GetIds() []int32 {
 
 type CustomersSearchRequest struct {
 	Names    []string `protobuf:"bytes,1,rep,name=names" json:"names,omitempty"`
-	StoreIds []int32  `protobuf:"varint,2,rep,packed,name=store_ids,json=storeIds" json:"store_ids,omitempty"`
-	UserId   int32    `protobuf:"varint,3,opt,name=user_id,json=userId" json:"user_id,omitempty"`
+	StoreIds []uint32 `protobuf:"varint,2,rep,packed,name=store_ids,json=storeIds" json:"store_ids,omitempty"`
+	UserId   uint32   `protobuf:"varint,3,opt,name=user_id,json=userId" json:"user_id,omitempty"`
 }
 
 func (m *CustomersSearchRequest) Reset()                    { *m = CustomersSearchRequest{} }
 func (m *CustomersSearchRequest) String() string            { return proto.CompactTextString(m) }
 func (*CustomersSearchRequest) ProtoMessage()               {}
-func (*CustomersSearchRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{14} }
+func (*CustomersSearchRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{15} }
 
 func (m *CustomersSearchRequest) GetNames() []string {
 	if m != nil {
@@ -364,14 +405,14 @@ func (m *CustomersSearchRequest) GetNames() []string {
 	return nil
 }
 
-func (m *CustomersSearchRequest) GetStoreIds() []int32 {
+func (m *CustomersSearchRequest) GetStoreIds() []uint32 {
 	if m != nil {
 		return m.StoreIds
 	}
 	return nil
 }
 
-func (m *CustomersSearchRequest) GetUserId() int32 {
+func (m *CustomersSearchRequest) GetUserId() uint32 {
 	if m != nil {
 		return m.UserId
 	}
@@ -379,51 +420,59 @@ func (m *CustomersSearchRequest) GetUserId() int32 {
 }
 
 type CustomerRequest struct {
-	Id int32 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
+	Customer *Customer `protobuf:"bytes,1,opt,name=customer" json:"customer,omitempty"`
 }
 
 func (m *CustomerRequest) Reset()                    { *m = CustomerRequest{} }
 func (m *CustomerRequest) String() string            { return proto.CompactTextString(m) }
 func (*CustomerRequest) ProtoMessage()               {}
-func (*CustomerRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{15} }
+func (*CustomerRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{16} }
 
-func (m *CustomerRequest) GetId() int32 {
+func (m *CustomerRequest) GetCustomer() *Customer {
 	if m != nil {
-		return m.Id
+		return m.Customer
 	}
-	return 0
+	return nil
 }
 
 type CustomersResponse struct {
-	Stores []*Store `protobuf:"bytes,1,rep,name=stores" json:"stores,omitempty"`
+	Customers []*Customer `protobuf:"bytes,1,rep,name=customers" json:"customers,omitempty"`
 }
 
 func (m *CustomersResponse) Reset()                    { *m = CustomersResponse{} }
 func (m *CustomersResponse) String() string            { return proto.CompactTextString(m) }
 func (*CustomersResponse) ProtoMessage()               {}
-func (*CustomersResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{16} }
+func (*CustomersResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{17} }
 
-func (m *CustomersResponse) GetStores() []*Store {
+func (m *CustomersResponse) GetCustomers() []*Customer {
 	if m != nil {
-		return m.Stores
+		return m.Customers
 	}
 	return nil
 }
 
 type CustomerResponse struct {
-	Store *Store `protobuf:"bytes,1,opt,name=store" json:"store,omitempty"`
+	Customer *Customer `protobuf:"bytes,1,opt,name=customer" json:"customer,omitempty"`
+	Success  bool      `protobuf:"varint,2,opt,name=success" json:"success,omitempty"`
 }
 
 func (m *CustomerResponse) Reset()                    { *m = CustomerResponse{} }
 func (m *CustomerResponse) String() string            { return proto.CompactTextString(m) }
 func (*CustomerResponse) ProtoMessage()               {}
-func (*CustomerResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{17} }
+func (*CustomerResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{18} }
 
-func (m *CustomerResponse) GetStore() *Store {
+func (m *CustomerResponse) GetCustomer() *Customer {
 	if m != nil {
-		return m.Store
+		return m.Customer
 	}
 	return nil
+}
+
+func (m *CustomerResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
 }
 
 func init() {
@@ -433,6 +482,7 @@ func init() {
 	proto.RegisterType((*UserRequest)(nil), "UserRequest")
 	proto.RegisterType((*UsersResponse)(nil), "UsersResponse")
 	proto.RegisterType((*UserResponse)(nil), "UserResponse")
+	proto.RegisterType((*DeleteResponse)(nil), "DeleteResponse")
 	proto.RegisterType((*Store)(nil), "Store")
 	proto.RegisterType((*StoresRequest)(nil), "StoresRequest")
 	proto.RegisterType((*StoresSearchRequest)(nil), "StoresSearchRequest")
@@ -458,12 +508,21 @@ type ServiceClient interface {
 	GetUsers(ctx context.Context, in *UsersRequest, opts ...client.CallOption) (*UsersResponse, error)
 	SearchUsers(ctx context.Context, in *UsersSearchRequest, opts ...client.CallOption) (*UsersResponse, error)
 	GetUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*UserResponse, error)
+	CreateUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*UserResponse, error)
+	UpdateUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*UserResponse, error)
+	DeleteUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*DeleteResponse, error)
 	GetStores(ctx context.Context, in *StoresRequest, opts ...client.CallOption) (*StoresResponse, error)
 	SearchStores(ctx context.Context, in *StoresSearchRequest, opts ...client.CallOption) (*StoresResponse, error)
 	GetStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*StoreResponse, error)
+	CreateStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*StoreResponse, error)
+	UpdateStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*StoreResponse, error)
+	DeleteStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*DeleteResponse, error)
 	GetCustomers(ctx context.Context, in *CustomersRequest, opts ...client.CallOption) (*CustomersResponse, error)
 	SearchCustomers(ctx context.Context, in *CustomersSearchRequest, opts ...client.CallOption) (*CustomersResponse, error)
 	GetCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*CustomerResponse, error)
+	CreateCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*CustomerResponse, error)
+	UpdateCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*CustomerResponse, error)
+	DeleteCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*DeleteResponse, error)
 }
 
 type serviceClient struct {
@@ -514,6 +573,36 @@ func (c *serviceClient) GetUser(ctx context.Context, in *UserRequest, opts ...cl
 	return out, nil
 }
 
+func (c *serviceClient) CreateUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*UserResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.CreateUser", in)
+	out := new(UserResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) UpdateUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*UserResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.UpdateUser", in)
+	out := new(UserResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) DeleteUser(ctx context.Context, in *UserRequest, opts ...client.CallOption) (*DeleteResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.DeleteUser", in)
+	out := new(DeleteResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceClient) GetStores(ctx context.Context, in *StoresRequest, opts ...client.CallOption) (*StoresResponse, error) {
 	req := c.c.NewRequest(c.serviceName, "Service.GetStores", in)
 	out := new(StoresResponse)
@@ -537,6 +626,36 @@ func (c *serviceClient) SearchStores(ctx context.Context, in *StoresSearchReques
 func (c *serviceClient) GetStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*StoreResponse, error) {
 	req := c.c.NewRequest(c.serviceName, "Service.GetStore", in)
 	out := new(StoreResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) CreateStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*StoreResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.CreateStore", in)
+	out := new(StoreResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) UpdateStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*StoreResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.UpdateStore", in)
+	out := new(StoreResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) DeleteStore(ctx context.Context, in *StoreRequest, opts ...client.CallOption) (*DeleteResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.DeleteStore", in)
+	out := new(DeleteResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -574,18 +693,57 @@ func (c *serviceClient) GetCustomer(ctx context.Context, in *CustomerRequest, op
 	return out, nil
 }
 
+func (c *serviceClient) CreateCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*CustomerResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.CreateCustomer", in)
+	out := new(CustomerResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) UpdateCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*CustomerResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.UpdateCustomer", in)
+	out := new(CustomerResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) DeleteCustomer(ctx context.Context, in *CustomerRequest, opts ...client.CallOption) (*DeleteResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Service.DeleteCustomer", in)
+	out := new(DeleteResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Service service
 
 type ServiceHandler interface {
 	GetUsers(context.Context, *UsersRequest, *UsersResponse) error
 	SearchUsers(context.Context, *UsersSearchRequest, *UsersResponse) error
 	GetUser(context.Context, *UserRequest, *UserResponse) error
+	CreateUser(context.Context, *UserRequest, *UserResponse) error
+	UpdateUser(context.Context, *UserRequest, *UserResponse) error
+	DeleteUser(context.Context, *UserRequest, *DeleteResponse) error
 	GetStores(context.Context, *StoresRequest, *StoresResponse) error
 	SearchStores(context.Context, *StoresSearchRequest, *StoresResponse) error
 	GetStore(context.Context, *StoreRequest, *StoreResponse) error
+	CreateStore(context.Context, *StoreRequest, *StoreResponse) error
+	UpdateStore(context.Context, *StoreRequest, *StoreResponse) error
+	DeleteStore(context.Context, *StoreRequest, *DeleteResponse) error
 	GetCustomers(context.Context, *CustomersRequest, *CustomersResponse) error
 	SearchCustomers(context.Context, *CustomersSearchRequest, *CustomersResponse) error
 	GetCustomer(context.Context, *CustomerRequest, *CustomerResponse) error
+	CreateCustomer(context.Context, *CustomerRequest, *CustomerResponse) error
+	UpdateCustomer(context.Context, *CustomerRequest, *CustomerResponse) error
+	DeleteCustomer(context.Context, *CustomerRequest, *DeleteResponse) error
 }
 
 func RegisterServiceHandler(s server.Server, hdlr ServiceHandler, opts ...server.HandlerOption) {
@@ -608,6 +766,18 @@ func (h *Service) GetUser(ctx context.Context, in *UserRequest, out *UserRespons
 	return h.ServiceHandler.GetUser(ctx, in, out)
 }
 
+func (h *Service) CreateUser(ctx context.Context, in *UserRequest, out *UserResponse) error {
+	return h.ServiceHandler.CreateUser(ctx, in, out)
+}
+
+func (h *Service) UpdateUser(ctx context.Context, in *UserRequest, out *UserResponse) error {
+	return h.ServiceHandler.UpdateUser(ctx, in, out)
+}
+
+func (h *Service) DeleteUser(ctx context.Context, in *UserRequest, out *DeleteResponse) error {
+	return h.ServiceHandler.DeleteUser(ctx, in, out)
+}
+
 func (h *Service) GetStores(ctx context.Context, in *StoresRequest, out *StoresResponse) error {
 	return h.ServiceHandler.GetStores(ctx, in, out)
 }
@@ -618,6 +788,18 @@ func (h *Service) SearchStores(ctx context.Context, in *StoresSearchRequest, out
 
 func (h *Service) GetStore(ctx context.Context, in *StoreRequest, out *StoreResponse) error {
 	return h.ServiceHandler.GetStore(ctx, in, out)
+}
+
+func (h *Service) CreateStore(ctx context.Context, in *StoreRequest, out *StoreResponse) error {
+	return h.ServiceHandler.CreateStore(ctx, in, out)
+}
+
+func (h *Service) UpdateStore(ctx context.Context, in *StoreRequest, out *StoreResponse) error {
+	return h.ServiceHandler.UpdateStore(ctx, in, out)
+}
+
+func (h *Service) DeleteStore(ctx context.Context, in *StoreRequest, out *DeleteResponse) error {
+	return h.ServiceHandler.DeleteStore(ctx, in, out)
 }
 
 func (h *Service) GetCustomers(ctx context.Context, in *CustomersRequest, out *CustomersResponse) error {
@@ -632,44 +814,64 @@ func (h *Service) GetCustomer(ctx context.Context, in *CustomerRequest, out *Cus
 	return h.ServiceHandler.GetCustomer(ctx, in, out)
 }
 
+func (h *Service) CreateCustomer(ctx context.Context, in *CustomerRequest, out *CustomerResponse) error {
+	return h.ServiceHandler.CreateCustomer(ctx, in, out)
+}
+
+func (h *Service) UpdateCustomer(ctx context.Context, in *CustomerRequest, out *CustomerResponse) error {
+	return h.ServiceHandler.UpdateCustomer(ctx, in, out)
+}
+
+func (h *Service) DeleteCustomer(ctx context.Context, in *CustomerRequest, out *DeleteResponse) error {
+	return h.ServiceHandler.DeleteCustomer(ctx, in, out)
+}
+
 func init() { proto.RegisterFile("user.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 561 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0x49, 0x6f, 0xdb, 0x3c,
-	0x10, 0xf5, 0x46, 0x2f, 0x63, 0x5b, 0xb6, 0x27, 0x46, 0xa2, 0x28, 0xdf, 0x17, 0x38, 0x44, 0x0f,
-	0xee, 0x12, 0x22, 0x48, 0x02, 0xf4, 0x5a, 0xa0, 0x07, 0x23, 0x57, 0x19, 0x3d, 0x17, 0x4e, 0x44,
-	0x20, 0x2a, 0x6c, 0xcb, 0x15, 0xe5, 0xfe, 0xdb, 0xfe, 0x97, 0x82, 0x43, 0x52, 0x91, 0xbc, 0x04,
-	0xbe, 0x69, 0x86, 0x6f, 0xe6, 0x0d, 0x1f, 0xdf, 0x08, 0x60, 0xab, 0x64, 0x2a, 0x36, 0x69, 0x92,
-	0x25, 0xfc, 0x17, 0x34, 0x7e, 0x28, 0x99, 0xa2, 0x07, 0xb5, 0x38, 0xf2, 0xab, 0x93, 0xea, 0x94,
-	0x85, 0xb5, 0x38, 0x42, 0x84, 0xc6, 0x7a, 0xb1, 0x92, 0x7e, 0x6d, 0x52, 0x9d, 0x76, 0x42, 0xfa,
-	0xc6, 0x31, 0xb0, 0xcd, 0x6b, 0xb2, 0x96, 0x7e, 0x9d, 0x92, 0x26, 0xd0, 0x59, 0xb9, 0x5a, 0xc4,
-	0x4b, 0xbf, 0x61, 0xb2, 0x14, 0xe8, 0xfa, 0x34, 0x59, 0x4a, 0x9f, 0x51, 0x47, 0xfa, 0xe6, 0x13,
-	0xe8, 0x69, 0x2e, 0x15, 0xca, 0xdf, 0x5b, 0xa9, 0x32, 0x1c, 0x42, 0x3d, 0x8e, 0x94, 0x5f, 0x9d,
-	0xd4, 0xa7, 0x2c, 0xd4, 0x9f, 0xfc, 0x13, 0x20, 0x21, 0xe6, 0x72, 0x91, 0xbe, 0xbc, 0x3a, 0xdc,
-	0x18, 0x98, 0xe6, 0x37, 0xc8, 0x4e, 0x68, 0x02, 0xfe, 0x3f, 0x74, 0x35, 0xd6, 0x81, 0x76, 0x2e,
-	0xc0, 0xbf, 0x40, 0xdf, 0x92, 0xa9, 0x4d, 0xb2, 0x56, 0x12, 0xaf, 0x80, 0xe9, 0x7b, 0x9b, 0x2e,
-	0xdd, 0x7b, 0x26, 0xa8, 0xda, 0xe4, 0xf8, 0x47, 0x33, 0x5a, 0x0e, 0xbe, 0x84, 0x86, 0x3e, 0xa0,
-	0x7e, 0x39, 0x96, 0x52, 0x7c, 0x06, 0x6c, 0x9e, 0x25, 0xa9, 0xdc, 0x93, 0x6c, 0x0c, 0x2c, 0x8b,
-	0xb3, 0xa5, 0xd3, 0xcc, 0x04, 0xe8, 0x43, 0x6b, 0x11, 0x45, 0xa9, 0x54, 0xca, 0xca, 0xe6, 0x42,
-	0x7e, 0x03, 0x7d, 0x6a, 0xf4, 0x8e, 0x1e, 0xb7, 0x70, 0x66, 0x20, 0x65, 0x41, 0xce, 0xa1, 0x49,
-	0xcd, 0x9d, 0x22, 0x36, 0xe2, 0xd7, 0xd0, 0x23, 0xf8, 0x31, 0x4d, 0xee, 0xc0, 0x73, 0x8c, 0xf6,
-	0x9e, 0xd7, 0xd0, 0x54, 0x94, 0xb1, 0xaa, 0x34, 0x85, 0x69, 0x60, 0xb3, 0xfc, 0xd6, 0xce, 0x98,
-	0x17, 0xfc, 0x07, 0x8c, 0x8e, 0xac, 0x32, 0x0e, 0x6f, 0x92, 0xfc, 0x19, 0xda, 0xdf, 0xb7, 0x2a,
-	0x4b, 0x56, 0x27, 0x3a, 0xea, 0x12, 0xda, 0x54, 0xf8, 0x33, 0x8e, 0x48, 0x1d, 0x16, 0xb6, 0x28,
-	0x7e, 0x8a, 0xf0, 0x02, 0x5a, 0x5a, 0x6e, 0x7d, 0xd2, 0xa0, 0x93, 0xa6, 0x0e, 0x9f, 0x22, 0xfe,
-	0x01, 0x86, 0x8e, 0xe3, 0x1d, 0xe5, 0x22, 0x38, 0xcf, 0x51, 0x27, 0xb8, 0x09, 0xaf, 0xa0, 0xe3,
-	0x26, 0x51, 0x7e, 0x8d, 0xfa, 0xb4, 0xed, 0x28, 0xaa, 0x38, 0x4b, 0xbd, 0x34, 0xcb, 0x0d, 0x0c,
-	0x1c, 0xcb, 0x31, 0xcd, 0x1f, 0x60, 0x54, 0x18, 0xf7, 0x44, 0xd9, 0xef, 0xde, 0xee, 0x78, 0x9a,
-	0xf2, 0xf7, 0x7f, 0xeb, 0xd0, 0x9a, 0xcb, 0xf4, 0x4f, 0xfc, 0x22, 0xf1, 0x33, 0xb4, 0x67, 0x32,
-	0x23, 0xf7, 0x63, 0x5f, 0x14, 0x57, 0x2e, 0xf0, 0x44, 0x69, 0x29, 0x78, 0x05, 0x1f, 0xa1, 0x6b,
-	0xf4, 0x31, 0xf8, 0x33, 0xb1, 0xbf, 0x80, 0x07, 0xaa, 0xa6, 0xd0, 0xb2, 0x14, 0xd8, 0x13, 0x85,
-	0x35, 0x0c, 0xfa, 0xa2, 0xb8, 0x47, 0xbc, 0x82, 0x02, 0x3a, 0x33, 0x99, 0x19, 0xdb, 0xa1, 0x27,
-	0x4a, 0x8e, 0x0f, 0x06, 0xa2, 0xec, 0x47, 0x5e, 0xc1, 0xaf, 0xd0, 0x33, 0xe4, 0xb6, 0x64, 0x2c,
-	0x0e, 0x6c, 0xc0, 0xa1, 0x42, 0x73, 0x6b, 0xb3, 0x9a, 0x7d, 0x51, 0xdc, 0x83, 0xc0, 0x13, 0x25,
-	0x13, 0x1b, 0x96, 0x99, 0xcc, 0xf2, 0x87, 0xc1, 0x91, 0xd8, 0xf5, 0x54, 0x80, 0x62, 0xef, 0xdd,
-	0x78, 0x05, 0xbf, 0xc1, 0xc0, 0x4c, 0xf2, 0x56, 0x7b, 0x21, 0x0e, 0x3b, 0xed, 0x48, 0x87, 0x47,
-	0xe8, 0x16, 0xa8, 0x71, 0x28, 0x76, 0x1c, 0x14, 0x8c, 0xc4, 0xee, 0xdb, 0xf3, 0xca, 0x73, 0x93,
-	0x7e, 0xd7, 0x0f, 0xff, 0x02, 0x00, 0x00, 0xff, 0xff, 0x91, 0x57, 0x53, 0x9e, 0xbc, 0x05, 0x00,
-	0x00,
+	// 704 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0x5f, 0x6f, 0xda, 0x3e,
+	0x14, 0x85, 0x42, 0x20, 0x5c, 0x48, 0x68, 0x5d, 0xd4, 0xa6, 0xf4, 0xa7, 0x9f, 0x98, 0xb5, 0x69,
+	0x68, 0x6d, 0xbd, 0xa9, 0xeb, 0xd4, 0x3d, 0xec, 0x61, 0x52, 0x27, 0xa1, 0x3e, 0xec, 0x25, 0xa8,
+	0xcf, 0x15, 0x25, 0x56, 0x9b, 0x09, 0x1a, 0x66, 0x87, 0x7d, 0x9e, 0x7d, 0xd4, 0xc9, 0xbe, 0x76,
+	0x9a, 0x94, 0x14, 0x65, 0x7b, 0xcb, 0xbd, 0xf7, 0xdc, 0x3f, 0x3e, 0xd7, 0xc7, 0x00, 0xb0, 0x96,
+	0x5c, 0xb0, 0x95, 0x48, 0xd2, 0x84, 0xfe, 0x80, 0xe6, 0x8d, 0xe4, 0x82, 0xf8, 0xb0, 0x13, 0x47,
+	0x41, 0x7d, 0x54, 0x1f, 0x7b, 0xe1, 0x4e, 0x1c, 0x11, 0x02, 0xcd, 0xc7, 0xd9, 0x92, 0x07, 0x3b,
+	0xa3, 0xfa, 0xb8, 0x13, 0xea, 0x6f, 0x32, 0x00, 0x67, 0xf5, 0x90, 0x3c, 0xf2, 0xa0, 0xa1, 0x9d,
+	0x68, 0x28, 0x2f, 0x5f, 0xce, 0xe2, 0x45, 0xd0, 0x44, 0xaf, 0x36, 0x54, 0xbe, 0x48, 0x16, 0x3c,
+	0x70, 0x74, 0x45, 0xfd, 0x4d, 0x47, 0xd0, 0x53, 0xbd, 0x64, 0xc8, 0x7f, 0xae, 0xb9, 0x4c, 0xc9,
+	0x2e, 0x34, 0xe2, 0x48, 0x06, 0xf5, 0x51, 0x63, 0xec, 0x85, 0xea, 0x93, 0xbe, 0x03, 0xa2, 0x11,
+	0x53, 0x3e, 0x13, 0xf3, 0x07, 0x8b, 0x1b, 0x80, 0xa3, 0xfa, 0x23, 0xb2, 0x13, 0xa2, 0x41, 0xc7,
+	0xd0, 0x55, 0x58, 0x0b, 0x3a, 0x82, 0xa6, 0x3a, 0x96, 0x3e, 0x42, 0xf7, 0xdc, 0x61, 0x3a, 0xa6,
+	0x5d, 0xf4, 0x14, 0x3c, 0xd3, 0x57, 0xae, 0x92, 0x47, 0xc9, 0xc9, 0x31, 0x38, 0x2a, 0x80, 0x05,
+	0x33, 0x30, 0xfa, 0xe8, 0x15, 0x4e, 0x99, 0x81, 0x5f, 0x2e, 0x4c, 0x02, 0x68, 0xcb, 0xf5, 0x7c,
+	0xce, 0xa5, 0xd4, 0x3c, 0xb9, 0xa1, 0x35, 0xe9, 0x04, 0xfc, 0x6f, 0x7c, 0xc1, 0x53, 0x9e, 0x95,
+	0xc9, 0x61, 0xeb, 0x05, 0x2c, 0x39, 0x86, 0x0e, 0x17, 0x22, 0x11, 0xb7, 0x4b, 0x79, 0x6f, 0xf8,
+	0x76, 0xb5, 0xe3, 0xbb, 0xbc, 0xa7, 0x13, 0x70, 0xa6, 0x69, 0x22, 0xf8, 0xc6, 0x82, 0x06, 0xe0,
+	0xa4, 0x71, 0xba, 0xb0, 0x1b, 0x42, 0x43, 0x75, 0x99, 0x45, 0x91, 0x50, 0x5d, 0x70, 0x49, 0xd6,
+	0xa4, 0xaf, 0xc0, 0xd3, 0x85, 0xb6, 0xb0, 0x7f, 0x06, 0xfb, 0x08, 0x29, 0xd2, 0x7f, 0x00, 0x2d,
+	0x5d, 0xdc, 0xf2, 0x6f, 0x2c, 0x7a, 0x0a, 0x3d, 0x0d, 0xb7, 0xb8, 0xff, 0xc0, 0x91, 0xca, 0x36,
+	0x4c, 0xb5, 0x18, 0x46, 0xd1, 0x49, 0x3f, 0x80, 0x6f, 0xfb, 0x1b, 0x46, 0xfe, 0x87, 0x96, 0x0e,
+	0xd9, 0x35, 0xd8, 0x04, 0xe3, 0xa5, 0x13, 0x33, 0x71, 0x96, 0xb0, 0xb5, 0xc1, 0x96, 0x65, 0xdc,
+	0x81, 0x7b, 0xb5, 0x96, 0x69, 0xb2, 0xac, 0x78, 0xcf, 0x8f, 0xc0, 0xd5, 0x25, 0x6f, 0xe3, 0x48,
+	0xb3, 0xe8, 0x85, 0x6d, 0x6d, 0x5f, 0x47, 0xe4, 0x10, 0xda, 0x6a, 0xf3, 0x2a, 0xd2, 0xd4, 0x91,
+	0x96, 0x32, 0xaf, 0x23, 0xfa, 0x1a, 0x76, 0x6d, 0x8f, 0x2d, 0x0c, 0x47, 0x70, 0x90, 0xa1, 0x2a,
+	0xdc, 0x71, 0x75, 0x35, 0xec, 0x24, 0xea, 0x54, 0xaa, 0x8e, 0x6b, 0x46, 0x91, 0xf9, 0x59, 0x1a,
+	0x85, 0x59, 0x3e, 0x43, 0xdf, 0x76, 0xb1, 0xe5, 0xdf, 0x80, 0x3b, 0x37, 0x2e, 0xc3, 0x5e, 0x87,
+	0x65, 0x98, 0x2c, 0x44, 0xbf, 0xc0, 0x5e, 0xee, 0x14, 0x86, 0xf6, 0xb7, 0xd0, 0xb1, 0x00, 0xbb,
+	0xaa, 0x5c, 0xf2, 0x53, 0x8c, 0x4e, 0x9f, 0x38, 0xc8, 0x92, 0xab, 0x35, 0x7e, 0x79, 0x79, 0xe7,
+	0xbf, 0xdb, 0xd0, 0x9e, 0x72, 0xf1, 0x2b, 0x9e, 0x73, 0x72, 0x02, 0xee, 0x84, 0xa7, 0x5a, 0xcb,
+	0xc4, 0x63, 0xf9, 0xb7, 0x64, 0xe8, 0xb3, 0x82, 0xc4, 0x69, 0x8d, 0x5c, 0x40, 0x17, 0x29, 0x46,
+	0xfc, 0x3e, 0xdb, 0x7c, 0x59, 0x4a, 0xb2, 0xc6, 0xd0, 0x36, 0x2d, 0x48, 0x8f, 0xe5, 0xde, 0x97,
+	0xa1, 0xc7, 0xf2, 0xaf, 0x02, 0xad, 0x91, 0x13, 0x80, 0x2b, 0xc1, 0x67, 0x29, 0xaf, 0x08, 0xbe,
+	0x59, 0x45, 0x15, 0xc1, 0x67, 0x00, 0xf8, 0x78, 0x94, 0x80, 0xfb, 0xac, 0xf8, 0xae, 0xd0, 0x1a,
+	0x61, 0xd0, 0x99, 0xf0, 0x14, 0xc5, 0x45, 0x7c, 0x56, 0x50, 0xf9, 0xb0, 0xcf, 0x8a, 0xaa, 0xa3,
+	0x35, 0x72, 0x09, 0x3d, 0x64, 0xc1, 0xa4, 0x0c, 0x58, 0x89, 0xea, 0xcb, 0x12, 0x91, 0x7e, 0x7c,
+	0x8e, 0x3c, 0x96, 0xd7, 0xfe, 0xd0, 0x67, 0x05, 0xa9, 0xea, 0xa9, 0xba, 0x48, 0x4f, 0x75, 0x3c,
+	0x32, 0x54, 0x11, 0xff, 0x1e, 0xba, 0xc8, 0x44, 0x29, 0xbe, 0x84, 0xa6, 0x4b, 0xe8, 0x4d, 0x78,
+	0x9a, 0x5d, 0x6f, 0xb2, 0xc7, 0x9e, 0x0b, 0x76, 0x48, 0xd8, 0xc6, 0xed, 0xa7, 0x35, 0xf2, 0x15,
+	0xfa, 0x48, 0xcd, 0x53, 0xee, 0x21, 0x2b, 0x97, 0xf1, 0x0b, 0x15, 0x2e, 0xa0, 0x9b, 0x6b, 0x4d,
+	0x76, 0xd9, 0x33, 0x79, 0x0e, 0xf7, 0xd8, 0x73, 0xe1, 0xe8, 0x81, 0x7d, 0x64, 0xf0, 0x1f, 0x12,
+	0x91, 0xca, 0xbf, 0x4d, 0xfc, 0x64, 0x7f, 0xb5, 0xb6, 0x24, 0x6e, 0x32, 0x7b, 0xd7, 0xd2, 0x7f,
+	0x25, 0x3e, 0xfe, 0x09, 0x00, 0x00, 0xff, 0xff, 0x25, 0x35, 0xc5, 0xde, 0x58, 0x08, 0x00, 0x00,
 }

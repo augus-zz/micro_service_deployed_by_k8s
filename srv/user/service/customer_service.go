@@ -17,3 +17,15 @@ func (s *Service) SearchCustomers(ctx context.Context, req *proto.CustomersSearc
 func (s *Service) GetCustomer(ctx context.Context, req *proto.CustomerRequest, rsp *proto.CustomerResponse) error {
 	return nil
 }
+
+func (s *Service) CreateCustomer(ctx context.Context, req *proto.CustomerRequest, rsp *proto.CustomerResponse) error {
+	return nil
+}
+
+func (s *Service) UpdateCustomer(ctx context.Context, req *proto.CustomerRequest, rsp *proto.CustomerResponse) error {
+	return nil
+}
+
+func (s *Service) DeleteCustomer(ctx context.Context, req *proto.CustomerRequest, rsp *proto.DeleteResponse) error {
+	return nil
+}

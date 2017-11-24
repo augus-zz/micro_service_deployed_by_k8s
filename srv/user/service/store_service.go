@@ -17,3 +17,15 @@ func (s *Service) SearchStores(ctx context.Context, req *proto.StoresSearchReque
 func (s *Service) GetStore(ctx context.Context, req *proto.StoreRequest, rsp *proto.StoreResponse) error {
 	return nil
 }
+
+func (s *Service) CreateStore(ctx context.Context, req *proto.StoreRequest, rsp *proto.StoreResponse) error {
+	return nil
+}
+
+func (s *Service) UpdateStore(ctx context.Context, req *proto.StoreRequest, rsp *proto.StoreResponse) error {
+	return nil
+}
+
+func (s *Service) DeleteStore(ctx context.Context, req *proto.StoreRequest, rsp *proto.DeleteResponse) error {
+	return nil
+}
