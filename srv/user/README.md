@@ -11,6 +11,7 @@
 
 #### user
 * create `micro query user Service.CreateUser '{"user": {"id": 1, "name": "zouqilin", "Phone": "12345678", "Email": "mr.zouqilin@gmail.com", "Role": 0}}'`
+* update `micro query user Service.UpdateUser '{"user": {"id": 1, "name": "zouqilin", "Phone": "87654321", "Email": "mr.zouqilin@gmail.com", "Role": 0}}'`
 * get one `micro query user Service.GetUser '{"user": {"id": 1}}'`
 * get batch `micro query user Service.GetUsers '{"ids": 1}'`
 * delete `micro query user Service.DeleteUser '{"user": {"id": 1}}'`
