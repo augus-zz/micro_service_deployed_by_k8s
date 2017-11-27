@@ -2,3 +2,7 @@
 **/vendor.orig/
 *.swp
 *tags
+api/api
+srv/order/order
+srv/listing/listing
+srv/user/user
