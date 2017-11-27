@@ -1,10 +1,10 @@
 package service
 
 import (
-	// "micro-demo-deploy-by-k8s/srv/user/model"
+	// "micro_service_deployed_by_k8s//srv/user/model"
 	micro "github.com/micro/go-micro"
 	"log"
-	proto "micro-demo-deploy-by-k8s/srv/user/proto"
+	proto "micro_service_deployed_by_k8s/srv/user/proto"
 )
 
 var (

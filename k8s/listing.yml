@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service # 类型为Service
+metadata:
+  name: user # 定义Service的name
+spec:
+  ports:
+  - port
+    name: http
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: listing
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: listing-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: listing
+    spec:
+      containers:
+      - name: listing
+        image: listing:latest
+        ports:
+        - containerPort: 8080
+

@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"log"
-	"micro-demo-deploy-by-k8s/srv/user/model"
-	proto "micro-demo-deploy-by-k8s/srv/user/proto"
+	"micro_service_deployed_by_k8s/srv/user/model"
+	proto "micro_service_deployed_by_k8s/srv/user/proto"
 )
 
 func (s *Service) GetStores(ctx context.Context, req *proto.StoresRequest, rsp *proto.StoresResponse) error {
