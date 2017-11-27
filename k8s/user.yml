@@ -28,4 +28,30 @@ spec:
         image: user:latest
         ports:
         - containerPort: 8080
+        env:
+          name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: mysql-wr-server.host
+          name: MYSQL_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: mysql-wr-server.port
+          name: MYSQL_USRNAME
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: mysql-wr-server.username
+          name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: mysql-wr-server.password
+          name: MYSQL_DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: mysql-wr-server.db_user
 

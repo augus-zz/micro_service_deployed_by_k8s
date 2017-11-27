@@ -19,36 +19,5 @@ data:
     db_user: db_user
     db_listing: db_listing
     db_order: db_order
-  consul-master-server: |
-    bootstrap: true,
-    server: true,
-    datacenter: "dc1",
-    data_dir: "/var/consul",
-    encrypt: "Dt3P9SpKGAR/DIUN1cDirg==",
-    log_level: "INFO",
-    enable_syslog: true,
-    # bind_addr: "172.20.20.10",
-    # client_addr: "172.20.20.10"
-  consul-slave-server: |
-    bootstrap: false,
-    server: true,
-    datacenter: "dc1",
-    data_dir: "/var/consul",
-    encrypt: "Dt3P9SpKGAR/DIUN1cDirg==",
-    log_level: "INFO",
-    enable_syslog": true,
-    # bind_addr: "172.20.20.20",
-    # client_addr: "172.20.20.20",
-    # start_join: ["172.20.20.10", "172.20.20.30"]
-  consul-client:|
-    bootstrap: false,
-    server: false,
-    datacenter: "dc1",
-    data_dir: "/var/consul",
-    ui_dir: "/usr/local/bin/dist",
-    encrypt: "Dt3P9SpKGAR/DIUN1cDirg==",
-    log_level: "INFO",
-    enable_syslog: true,
-    # bind_addr: "172.20.20.40",
-    # client_addr: "172.20.20.40",
-    # start_join: ["172.20.20.10", "172.20.20.20", "172.20.20.30"]
+  consul-server:
+    - client.consul.default.svc.cluster.local
