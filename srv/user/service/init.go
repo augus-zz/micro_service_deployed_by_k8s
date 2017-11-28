@@ -32,8 +32,8 @@ func init() {
 		initTestEnv()
 	}
 
-	// registryHost := os.Getenv("REGISTRY_SERVER_HOST")
-	// registryPort := os.Getenv("REGISTRY_SERVER_PORT")
+	registryHost := os.Getenv("REGISTRY_SERVER_HOST")
+	registryPort := os.Getenv("REGISTRY_SERVER_PORT")
 
 	service = micro.NewService(
 		micro.Name("user"),
@@ -41,7 +41,9 @@ func init() {
 		micro.Metadata(map[string]string{
 			"type": "user",
 		}),
-		// micro.Registry(newRegistry(registryHost, registryPort)),
+		micro.Registry(
+			newRegistry(registryHost, registryPort),
+		),
 	)
 
 	service.Init()

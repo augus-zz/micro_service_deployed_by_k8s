@@ -13,31 +13,31 @@ var (
 // cmd *exec.Cmd
 )
 
-func initTestEnv() {
-	// do something for test env
-	// os.Setenv("REGISTRY_SERVER_HOST", registryHost)
-	// os.Setenv("REGISTRY_SERVER_PORT", registryPort)
+// func initTestEnv() {
+// do something for test env
+// os.Setenv("REGISTRY_SERVER_HOST", registryHost)
+// os.Setenv("REGISTRY_SERVER_PORT", registryPort)
 
-	startRegistry()
-}
+// startRegistry()
+// }
 
-func startRegistry() {
-	// 	cmd = exec.Command(fmt.Sprintf("consul agent -dev --advertise=%s -http-port=%s", registryHost, registryPort))
-	// 	err := cmd.Start()
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-}
+// func startRegistry() {
+// 	cmd = exec.Command(fmt.Sprintf("consul agent -dev --advertise=%s -http-port=%s", registryHost, registryPort))
+// 	err := cmd.Start()
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// }
 
-func stopRegistry() {
-	// 	// we need to stop Registry
-	// 	if err := cmd.Process.Signal(os.Interrupt); err != nil {
-	// 		if err := cmd.Process.Signal(os.Kill); err != nil {
-	// 			log.Println("failed to stop register, register addr: %s:%d", registryHost, registryPort)
-	// 		}
-	// 	}
-	// 	defer cmd.Wait()
-}
+// func stopRegistry() {
+// 	// we need to stop Registry
+// 	if err := cmd.Process.Signal(os.Interrupt); err != nil {
+// 		if err := cmd.Process.Signal(os.Kill); err != nil {
+// 			log.Println("failed to stop register, register addr: %s:%d", registryHost, registryPort)
+// 		}
+// 	}
+// 	defer cmd.Wait()
+// }
 
 func TestInit(t *testing.T) {
 	// get service from registry
