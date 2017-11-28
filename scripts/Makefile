@@ -16,6 +16,10 @@ build:
 ifndef TAG
 	$(error TAG is undefined)
 endif
+ifndef SERVICE_ENV
+	SERVICE_ENV=development
+	# SERVICE_ENV=production|staging|development|test
+endif
 ifndef APP
 	APP=(api listing order user)
 	$(foreach d,$(APP),make build TAG=$(TAG) APP=$(d);)

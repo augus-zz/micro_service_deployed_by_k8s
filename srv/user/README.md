@@ -2,8 +2,8 @@
 `consul agent -dev -bind=127.0.0.1`
 
 ### test
-* model `MYSQL_USERNAME=mysql_username MYSQL_PASSWORD=mysql_pwd MYSQL_DB_NAME=db_name go test -v ./model`
-* service `go test -v ./service`
+* model `SERVICE_ENV=test MYSQL_USERNAME=mysql_username MYSQL_PASSWORD=mysql_pwd MYSQL_DB_NAME=db_name go test -v ./model`
+* service `SERVICE_ENV=test MYSQL_USERNAME=mysql_username MYSQL_PASSWORD=mysql_pwd MYSQL_DB_NAME=db_name REGISTRY_SERVER_HOST=registry_host REGISTRY_SERVER_PORT=registry_port go test -v ./service`
 
 ### run
 `MYSQL_USERNAME=mysql_username MYSQL_PASSWORD=mysql_pwd MYSQL_DB_NAME=db_name go run main.go`
