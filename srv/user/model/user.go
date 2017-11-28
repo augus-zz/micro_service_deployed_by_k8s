@@ -17,7 +17,7 @@ var (
 	USER_ROLE_STORE_STUFF   string = "stuff"
 	USER_ROLE_STORE_MANAGER string = "manager"
 	USER_ROLE_STORE_ADMIN   string = "admin"
-	USER_GOD                string = "god"
+	USER_ROLE_GOD           string = "god"
 )
 
 var USER_ROLES []string = []string{
@@ -25,7 +25,7 @@ var USER_ROLES []string = []string{
 	USER_ROLE_STORE_STUFF,
 	USER_ROLE_STORE_MANAGER,
 	USER_ROLE_STORE_ADMIN,
-	USER_GOD,
+	USER_ROLE_GOD,
 }
 
 type User struct {

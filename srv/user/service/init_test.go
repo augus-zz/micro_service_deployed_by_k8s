@@ -4,7 +4,6 @@ import (
 	// "fmt"
 	// micro "github.com/micro/go-micro"
 	// "github.com/micro/go-micro/registry"
-	// "log"
 	"os"
 	// "os/exec"
 	"testing"

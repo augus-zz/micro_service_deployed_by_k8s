@@ -6,12 +6,11 @@ import (
 	micro "github.com/micro/go-micro"
 	"github.com/micro/go-micro/registry"
 	"log"
-	proto "micro_service_deployed_by_k8s/srv/user/proto"
 	"os"
 )
 
 var (
-	service micro.Service
+	Svc micro.Service
 )
 
 type Service struct{}
@@ -23,34 +22,32 @@ func newRegistry(registryHost, registryPort string) registry.Registry {
 	)
 }
 
-func initTestEnv() {
-}
-
 func init() {
 	env := os.Getenv("SERVICE_ENV")
-	if env == "test" || env == "" {
-		initTestEnv()
+	if env == "test" {
+		// initTestEnv()
 	}
 
+	service_app := os.Getenv("SERVICE_APP")
 	// registryHost := os.Getenv("REGISTRY_SERVER_HOST")
 	// registryPort := os.Getenv("REGISTRY_SERVER_PORT")
 
-	service = micro.NewService(
-		micro.Name("user"),
+	Svc = micro.NewService(
+		micro.Name(service_app),
 		micro.Version("latest"),
 		micro.Metadata(map[string]string{
-			"type": "user",
+			"type": service_app,
 		}),
 		// micro.Registry(newRegistry(registryHost, registryPort)),
 	)
 
-	service.Init()
-	// service.Init(micro.Registry(newRegistry(registryHost, registryPort)))
-	proto.RegisterServiceHandler(service.Server(), new(Service))
+	Svc.Init()
+	// Svc.Init(micro.Registry(newRegistry(registryHost, registryPort)))
+	// proto.RegisterServiceHandler(Svc.Server(), new(Service))
 }
 
 func Run() {
-	if err := service.Run(); err != nil {
+	if err := Svc.Run(); err != nil {
 		log.Fatal(err)
 	}
 }
