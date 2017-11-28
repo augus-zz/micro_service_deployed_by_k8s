@@ -54,4 +54,13 @@ spec:
             configMapKeyRef:
               name: config_map
               key: mysql-wr-server.db_user
-
+          name: REGISTRY_SERVER_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: registry_server.host
+          name: REGISTRY_SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: config_map
+              key: registry_server.port

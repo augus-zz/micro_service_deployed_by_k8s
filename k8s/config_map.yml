@@ -19,5 +19,6 @@ data:
     db_user: db_user
     db_listing: db_listing
     db_order: db_order
-  consul-server:
-    - client.consul.default.svc.cluster.local
+  registry-server:
+    host: consul.default.svc.cluster
+    port: 8500
