@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"log"
+	"micro_service_deployed_by_k8s/shared/db"
 	"micro_service_deployed_by_k8s/srv/user/model"
 	proto "micro_service_deployed_by_k8s/srv/user/proto"
 )
@@ -10,7 +11,7 @@ import (
 func (s *Service) GetUsers(ctx context.Context, req *proto.UsersRequest, rsp *proto.UsersResponse) error {
 	users := []model.User{}
 
-	if err := model.DB.Where("id IN (?)", req.Ids).Find(&users).Error; err != nil || len(users) == 0 {
+	if err := db.DB.Where("id IN (?)", req.Ids).Find(&users).Error; err != nil || len(users) == 0 {
 		return nil
 	}
 
@@ -39,7 +40,7 @@ func (s *Service) SearchUsers(ctx context.Context, req *proto.UsersSearchRequest
 func (s *Service) GetUser(ctx context.Context, req *proto.UserRequest, rsp *proto.UserResponse) error {
 	user := model.User{}
 
-	if err := model.DB.First(&user, req.User.Id).Error; err != nil || user.ID != req.User.Id {
+	if err := db.DB.First(&user, req.User.Id).Error; err != nil || user.ID != req.User.Id {
 		return nil
 	}
 
@@ -66,7 +67,7 @@ func (s *Service) CreateUser(ctx context.Context, req *proto.UserRequest, rsp *p
 		Role:  req.User.Role,
 	}
 
-	if err := model.DB.Create(&user).Error; err != nil {
+	if err := db.DB.Create(&user).Error; err != nil {
 		return nil
 	}
 
@@ -94,7 +95,7 @@ func (s *Service) UpdateUser(ctx context.Context, req *proto.UserRequest, rsp *p
 	}
 
 	// should not update all attrs
-	if err := model.DB.Save(&user).Error; err != nil {
+	if err := db.DB.Save(&user).Error; err != nil {
 		return nil
 	}
 
@@ -114,7 +115,7 @@ func (s *Service) UpdateUser(ctx context.Context, req *proto.UserRequest, rsp *p
 func (s *Service) DeleteUser(ctx context.Context, req *proto.UserRequest, rsp *proto.DeleteResponse) error {
 	user := model.User{ID: req.User.Id}
 
-	if err := model.DB.Delete(&user).Error; err != nil {
+	if err := db.DB.Delete(&user).Error; err != nil {
 		rsp.Success = false
 		rsp.ErrorMsg = "Failed to delete"
 		return nil

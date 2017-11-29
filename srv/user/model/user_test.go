@@ -1,12 +1,13 @@
 package model
 
 import (
+	"micro_service_deployed_by_k8s/shared/db"
 	"testing"
 )
 
 func TestCreateUser(t *testing.T) {
-	clearDB()
-	defer clearDB()
+	ClearDB()
+	defer ClearDB()
 
 	user := User{
 		ID:    1,
@@ -16,10 +17,10 @@ func TestCreateUser(t *testing.T) {
 		Role:  ROLE_GOD,
 	}
 
-	DB.Create(&user)
+	db.DB.Create(&user)
 
 	var u User
-	DB.First(&u, user.ID)
+	db.DB.First(&u, user.ID)
 
 	if u.ID != user.ID || u.Name != user.Name {
 		t.Errorf("failed to create user")
@@ -27,8 +28,8 @@ func TestCreateUser(t *testing.T) {
 }
 
 func TestUpdateUser(t *testing.T) {
-	clearDB()
-	defer clearDB()
+	ClearDB()
+	defer ClearDB()
 
 	user := User{
 		ID:    1,
@@ -38,14 +39,14 @@ func TestUpdateUser(t *testing.T) {
 		Role:  ROLE_GOD,
 	}
 
-	DB.Create(&user)
+	db.DB.Create(&user)
 
 	user.Phone = "87654321"
 
-	DB.Save(&user)
+	db.DB.Save(&user)
 
 	var u User
-	DB.First(&u, user.ID)
+	db.DB.First(&u, user.ID)
 
 	if u.ID != user.ID || u.Phone != user.Phone {
 		t.Errorf("failed to update user")
@@ -53,8 +54,8 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestDeleteUser(t *testing.T) {
-	clearDB()
-	defer clearDB()
+	ClearDB()
+	defer ClearDB()
 
 	user := User{
 		ID:    1,
@@ -64,17 +65,17 @@ func TestDeleteUser(t *testing.T) {
 		Role:  ROLE_GOD,
 	}
 
-	DB.Create(&user)
+	db.DB.Create(&user)
 
 	var u User
-	if err := DB.First(&u, user.ID).Error; err != nil {
+	if err := db.DB.First(&u, user.ID).Error; err != nil {
 		t.Errorf("failed to create user")
 	}
 
 	id := user.ID
-	DB.Delete(&user)
+	db.DB.Delete(&user)
 
-	if !DB.First(&u, id).RecordNotFound() {
+	if !db.DB.First(&u, id).RecordNotFound() {
 		t.Errorf("failed to delete create user")
 	}
 }

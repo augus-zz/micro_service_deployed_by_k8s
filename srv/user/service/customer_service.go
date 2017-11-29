@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"log"
+	"micro_service_deployed_by_k8s/shared/db"
 	"micro_service_deployed_by_k8s/srv/user/model"
 	proto "micro_service_deployed_by_k8s/srv/user/proto"
 )
@@ -10,7 +11,7 @@ import (
 func (s *Service) GetCustomers(ctx context.Context, req *proto.CustomersRequest, rsp *proto.CustomersResponse) error {
 	customers := []model.Customer{}
 
-	if err := model.DB.Where("id IN (?)", req.Ids).Find(&customers).Error; err != nil || len(customers) == 0 {
+	if err := db.DB.Where("id IN (?)", req.Ids).Find(&customers).Error; err != nil || len(customers) == 0 {
 		return nil
 	}
 
@@ -37,7 +38,7 @@ func (s *Service) SearchCustomers(ctx context.Context, req *proto.CustomersSearc
 func (s *Service) GetCustomer(ctx context.Context, req *proto.CustomerRequest, rsp *proto.CustomerResponse) error {
 	customer := model.Customer{}
 
-	if err := model.DB.First(&customer, req.Customer.Id).Error; err != nil || customer.ID != req.Customer.Id {
+	if err := db.DB.First(&customer, req.Customer.Id).Error; err != nil || customer.ID != req.Customer.Id {
 		return nil
 	}
 
@@ -61,7 +62,7 @@ func (s *Service) CreateCustomer(ctx context.Context, req *proto.CustomerRequest
 		UserID:  req.Customer.UserId,
 	}
 
-	if err := model.DB.Create(&customer).Error; err != nil {
+	if err := db.DB.Create(&customer).Error; err != nil {
 		return nil
 	}
 
@@ -86,7 +87,7 @@ func (s *Service) UpdateCustomer(ctx context.Context, req *proto.CustomerRequest
 	}
 
 	// should not update all attrs
-	if err := model.DB.Save(&customer).Error; err != nil {
+	if err := db.DB.Save(&customer).Error; err != nil {
 		return nil
 	}
 
@@ -106,7 +107,7 @@ func (s *Service) UpdateCustomer(ctx context.Context, req *proto.CustomerRequest
 func (s *Service) DeleteCustomer(ctx context.Context, req *proto.CustomerRequest, rsp *proto.DeleteResponse) error {
 	customer := model.Customer{ID: req.Customer.Id}
 
-	if err := model.DB.Delete(&customer).Error; err != nil {
+	if err := db.DB.Delete(&customer).Error; err != nil {
 		rsp.Success = false
 		rsp.ErrorMsg = "Failed to delete"
 		return nil

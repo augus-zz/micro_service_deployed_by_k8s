@@ -24,13 +24,6 @@ func init() {
 	}
 }
 
-func clearDB() {
-	models := []interface{}{User{}, Customer{}, Store{}}
-	for _, m := range models {
-		DB.Exec(fmt.Sprintf("TRUNCATE TABLE %v;", DB.NewScope(m).TableName()))
-	}
-}
-
 func CloseDB() {
 	DB.Close()
 }

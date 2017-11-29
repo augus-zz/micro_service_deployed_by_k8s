@@ -8,12 +8,6 @@
   version = "v0.1.0"
 
 [[projects]]
-  name = "github.com/go-sql-driver/mysql"
-  packages = ["."]
-  revision = "a0583e0143b1624142adab07e0e97fe106d99561"
-  version = "v1.3"
-
-[[projects]]
   branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
@@ -42,18 +36,6 @@
   packages = ["coordinate"]
   revision = "d6574a5bb1226678d7010325fb6c985db20ee458"
   version = "v0.8.1"
-
-[[projects]]
-  name = "github.com/jinzhu/gorm"
-  packages = [".","dialects/mysql"]
-  revision = "5174cc5c242a728b435ea2be8a2f7f998e15429b"
-  version = "v1.0"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/jinzhu/inflection"
-  packages = ["."]
-  revision = "1c35d901db3da928c72a72d8458480cc9ade058f"
 
 [[projects]]
   branch = "master"
@@ -136,6 +118,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "7e5fd2744f47622b10d07e302a8c401f89da613d17da7ad6dea922adb2d5f998"
+  inputs-digest = "dc5cb709890cfa8f01a7f8ef47ff3c86b625316f7bfeb7043195419f6bdde611"
   solver-name = "gps-cdcl"
   solver-version = 1

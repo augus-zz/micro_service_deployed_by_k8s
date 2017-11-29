@@ -1,12 +1,13 @@
 package model
 
 import (
+	"micro_service_deployed_by_k8s/shared/db"
 	"testing"
 )
 
 func TestCreateStore(t *testing.T) {
-	clearDB()
-	defer clearDB()
+	ClearDB()
+	defer ClearDB()
 
 	store := Store{
 		ID:      1,
@@ -14,10 +15,10 @@ func TestCreateStore(t *testing.T) {
 		Address: "hunan, changsha",
 	}
 
-	DB.Create(&store)
+	db.DB.Create(&store)
 
 	var s Store
-	DB.First(&s, store.ID)
+	db.DB.First(&s, store.ID)
 
 	if s.ID != store.ID || s.Title != store.Title {
 		t.Errorf("failed to create store")
@@ -25,8 +26,8 @@ func TestCreateStore(t *testing.T) {
 }
 
 func TestUpdateStore(t *testing.T) {
-	clearDB()
-	defer clearDB()
+	ClearDB()
+	defer ClearDB()
 
 	store := Store{
 		ID:      1,
@@ -34,14 +35,14 @@ func TestUpdateStore(t *testing.T) {
 		Address: "changsha, hunan",
 	}
 
-	DB.Create(&store)
+	db.DB.Create(&store)
 
 	store.Address = "shenzhen, guangdong"
 
-	DB.Save(&store)
+	db.DB.Save(&store)
 
 	var s Store
-	DB.First(&s, store.ID)
+	db.DB.First(&s, store.ID)
 
 	if s.ID != store.ID || s.Address != store.Address {
 		t.Errorf("failed to update store")
@@ -49,8 +50,8 @@ func TestUpdateStore(t *testing.T) {
 }
 
 func TestDeleteStore(t *testing.T) {
-	clearDB()
-	defer clearDB()
+	ClearDB()
+	defer ClearDB()
 
 	store := Store{
 		ID:      1,
@@ -58,17 +59,17 @@ func TestDeleteStore(t *testing.T) {
 		Address: "changsha, hunan",
 	}
 
-	DB.Create(&store)
+	db.DB.Create(&store)
 
 	var s Store
-	if err := DB.First(&s, store.ID).Error; err != nil {
+	if err := db.DB.First(&s, store.ID).Error; err != nil {
 		t.Errorf("failed to create store")
 	}
 
 	id := store.ID
-	DB.Delete(&store)
+	db.DB.Delete(&store)
 
-	if !DB.First(&s, id).RecordNotFound() {
+	if !db.DB.First(&s, id).RecordNotFound() {
 		t.Errorf("failed to delete create store")
 	}
 }
